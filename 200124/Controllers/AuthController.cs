@@ -25,70 +25,91 @@ namespace _200124.Controllers
             _configuration = configuration;
 
         }
+        
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(string username , string password)
+        public async Task<IActionResult> Login([FromBody] LoginRequestModel model)
         {
-            //tim xem co nguoi dung co user name phu hop khong
-            var user = await _userManager.FindByNameAsync(username);
-            if (user != null)
-            {
-                //kiem tra password 
-                var checker = await _userManager.CheckPasswordAsync(user, password);
-                if(checker == true)
-                {
-                    //login thanh cong
-                    var tokenString = await GenerateJWTTokenAsync(user);
-                    dynamic result = new ExpandoObject();
-                    result.token = tokenString;
-                    result.message = "dang nhap thanh cong";
-                    return Ok(result);
-                }
-                else
-                {
-                    //login that bai
-                }
+            string username = model.Username;
+            string password = model.Password;
 
+            // Kiểm tra xem username và password có được cung cấp không
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Vui lòng cung cấp username và password.");
             }
-            return BadRequest("co loi ! vui long thu lai");
+
+            // Tìm kiếm người dùng trong cơ sở dữ liệu bằng username
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("Không tìm thấy người dùng.");
+            }
+
+            // Kiểm tra xem password có khớp với người dùng tìm thấy không
+            var isValidPassword = await _userManager.CheckPasswordAsync(user, password);
+            if (!isValidPassword)
+            {
+                return BadRequest("Sai username hoặc password.");
+            }
+
+            // Nếu username và password đều hợp lệ, tạo token JWT và trả về kết quả thành công
+            var tokenString = await GenerateJWTTokenAsync(user);
+            dynamic result = new ExpandoObject();
+            result.token = tokenString;
+            result.message = "Đăng nhập thành công.";
+            return Ok(result);
+        }
+
+        public class LoginRequestModel
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
 
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register (string username , string password , string role = "CUSTOMER")
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             await this.InitRoles();
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null)
             {
-                return BadRequest("Tai khoan da ton tai ! vui long ve trang dang nhap!");
+                return BadRequest("Tài khoản đã tồn tại! Vui lòng đăng nhập.");
             }
             else
             {
-                var newUser = new IdentityUser(username);
-                var checker = await _userManager.CreateAsync(newUser , password);
-                if(checker.Succeeded)
+                var newUser = new IdentityUser(model.Username);
+                var checker = await _userManager.CreateAsync(newUser, model.Password);
+                if (checker.Succeeded)
                 {
-                    //Phan quyen cho user
-                    await _userManager.AddToRoleAsync(newUser, role);
+                    //Phân quyền cho user
+                    await _userManager.AddToRoleAsync(newUser, model.Role);
 
-                    //tien hanh login
+                    //Tiến hành đăng nhập
 
                     var tokenString = await GenerateJWTTokenAsync(newUser);
                     dynamic result = new ExpandoObject();
                     result.token = tokenString;
-                    result.message = "dang ky thanh cong!";
+                    result.message = "Đăng ký thành công!";
                     return Ok(result);
                 }
 
             }
-            return BadRequest("Dang ky khong thanh cong ! Vui long thu lai!");
+            return BadRequest("Đăng ký không thành công! Vui lòng thử lại.");
+        }
+
+        public class RegisterViewModel
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string Role { get; set; } = "CUSTOMER";
         }
 
         private async Task InitRoles()
         {
-            //init data cho roles
+            //Khởi tạo dữ liệu cho các roles
             var roleAdmin = new IdentityRole("ADMIN");
             var roleSubAdmin = new IdentityRole("SUBADMIN");
             var roleCustomer = new IdentityRole("CUSTOMER");
@@ -105,6 +126,7 @@ namespace _200124.Controllers
                 await _roleManager.CreateAsync(roleCustomer);
             }
         }
+
 
         private async Task<string> GenerateJWTTokenAsync(IdentityUser user)
         {
