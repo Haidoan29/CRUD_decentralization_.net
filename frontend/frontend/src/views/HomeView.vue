@@ -48,7 +48,6 @@ export default {
 <script>
 import axios from 'axios';
 
-
 export default {
   name: 'Login_Register',
   props: {
