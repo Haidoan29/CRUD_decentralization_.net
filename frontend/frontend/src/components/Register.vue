@@ -1,21 +1,3 @@
-<!-- <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
-</script> -->
 <template>
   <div id="app">
     <h2>Đăng Ký</h2>
@@ -64,7 +46,7 @@ export default {
         });
         console.log(response.data);
 
-        this.$router.push('/about');
+        this.$router.push('/login');
       } catch (error) {
         console.error('Đăng ký không thành công:', error.response ? error.response.data : error.message);
       }

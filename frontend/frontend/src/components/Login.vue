@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h2>Đăng Ký</h2>
+        <!-- <h2>Đăng Ký</h2>
         <form @submit.prevent="register">
             <div>
                 <label for="username">Tên đăng nhập:</label>
@@ -11,7 +11,7 @@
                 <input type="password" id="password" v-model="registerForm.password" required>
             </div>
             <button type="submit">Đăng Ký</button>
-        </form>
+        </form> -->
 
         <h2>Đăng Nhập</h2>
         <form @submit.prevent="login">
@@ -51,19 +51,6 @@ export default {
         }
     },
     methods: {
-        async register() {
-            try {
-                const response = await axios.post('https://localhost:7074/api/Auth/Register?role=CUSTOMER', {
-                    username: this.registerForm.username,
-                    password: this.registerForm.password
-                });
-                console.log(response.data);
-                // Hiển thị thông báo thành công cho người dùng
-            } catch (error) {
-                console.error('Đăng ký không thành công:', error.response.data);
-                // Hiển thị thông báo lỗi cho người dùng
-            }
-        },
         async login() {
             try {
                 const response = await axios.post('https://localhost:7074/api/Auth/Login', {
@@ -88,6 +75,20 @@ export default {
                 // Hiển thị thông báo lỗi cho người dùng
             }
         }
+        // async register() {
+        //     try {
+        //         const response = await axios.post('https://localhost:7074/api/Auth/Register?role=CUSTOMER', {
+        //             username: this.registerForm.username,
+        //             password: this.registerForm.password
+        //         });
+        //         console.log(response.data);
+        //         // Hiển thị thông báo thành công cho người dùng
+        //     } catch (error) {
+        //         console.error('Đăng ký không thành công:', error.response.data);
+        //         // Hiển thị thông báo lỗi cho người dùng
+        //     }
+        // },
+
 
         // login() {
         //     var url = "https://localhost:7074/api/Auth/Login";
