@@ -85,7 +85,16 @@ namespace _200124.Controllers
                 if (checker.Succeeded)
                 {
                     //Phân quyền cho user
-                    await _userManager.AddToRoleAsync(newUser, model.Role);
+                    if (!string.IsNullOrEmpty(model.Role))
+                    {
+                        await _userManager.AddToRoleAsync(newUser, model.Role);
+                    }
+                    else
+                    {
+                        // Xử lý khi giá trị model.Role không được thiết lập
+                        await _userManager.AddToRoleAsync(newUser, "CUSTOMER");
+                    }
+                   
 
                     //Tiến hành đăng nhập
 
@@ -104,7 +113,7 @@ namespace _200124.Controllers
         {
             public string Username { get; set; }
             public string Password { get; set; }
-            public string Role { get; set; } = "CUSTOMER";
+            public string Role { get; set; }
         }
 
         private async Task InitRoles()
