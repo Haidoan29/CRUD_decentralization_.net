@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <router-link to="/register">Đăng ký</router-link> |
+        <!-- <router-link to="/register">Đăng ký</router-link> | -->
         <router-link to="/login">Đăng nhập</router-link>
         <button @click="logout">Logout</button>
     </nav>
