@@ -8,9 +8,22 @@
       </div>
       <div>
         <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" v-model="registerForm.password" required>
+        <input type="password" id="password" v-model="registerForm.password" required pattern=".{6,}"
+          title="Mật khẩu phải chứa ít nhất 6 ký tự">
       </div>
-      <button type="submit">Đăng Ký</button>
+      <div>
+        <label for="retypePassword">Nhập lại mật khẩu:</label>
+        <input type="password" id="retypePassword" v-model="registerForm.retypePassword" required>
+      </div>
+      <div>
+        <span v-if="passwordMismatch" class="error-message">Mật khẩu và mật khẩu nhập lại không khớp.</span>
+      </div>
+
+      <nav>
+        <router-link to="/login">Đăng nhập</router-link>|
+        <button type="submit">Đăng Ký</button>
+
+      </nav>
     </form>
 
   </div>
@@ -28,21 +41,31 @@ export default {
     return {
       registerForm: {
         username: '',
-        password: ''
+        password: '',
+        retypePassword: '' // Thêm trường retypePassword vào form data
       },
       loginForm: {
         username: '',
         password: ''
       },
-      token: '' // Lưu trữ token sau khi đăng nhập thành công
+      token: '', // Lưu trữ token sau khi đăng nhập thành công
+      passwordMismatch: false // Thêm passwordMismatch vào data để kiểm tra mật khẩu nhập lại
     }
   },
   methods: {
     async register() {
+      // Kiểm tra xem mật khẩu và mật khẩu nhập lại có khớp nhau không
+      if (this.registerForm.password !== this.registerForm.retypePassword) {
+        // Nếu mật khẩu không khớp, hiển thị thông báo lỗi
+        this.passwordMismatch = true;
+        return;
+      }
+
       try {
         const response = await axios.post('https://localhost:7074/api/Auth/Register?role=CUSTOMER', {
           username: this.registerForm.username,
-          password: this.registerForm.password
+          password: this.registerForm.password,
+          Role: 'CUSTOMER' // Thêm trường Role với giá trị 'CUSTOMER'
         });
         console.log(response.data);
 
@@ -71,3 +94,8 @@ export default {
 }
 
 </script>
+<style>
+.error-message {
+  color: red;
+}
+</style>
