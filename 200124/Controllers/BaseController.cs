@@ -19,6 +19,7 @@ namespace _200124.Controllers
         }
         [Authorize(Roles = "ADMIN , SUBADMIN , CUSTOMER")]
         [HttpGet]
+        [Route("GetAll")]
         public async Task<ActionResult<List<T>>> GetAll(bool isAsc = true , int index = 1, int size = 3)
         {
             var result = await _repository.GetAll(isAsc, index, size);
@@ -34,7 +35,7 @@ namespace _200124.Controllers
             return Ok(result);
         }
         [Authorize(Roles = "ADMIN , SUBADMIN , CUSTOMER")]
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Class>> GetById(int id)
         {
             var result = await (_repository.GetById(id));
@@ -42,6 +43,7 @@ namespace _200124.Controllers
         }
         [Authorize(Roles = "ADMIN , SUBADMIN")]
         [HttpPost]
+        [Route("Create")]
         public async Task<ActionResult<Class>> Create(T entity)
         {
             var result = await _repository.Create( entity);
@@ -49,6 +51,7 @@ namespace _200124.Controllers
         }
         [Authorize(Roles = "ADMIN , SUBADMIN")]
         [HttpPut]
+        [Route("Update")]
         public async Task<ActionResult<Class>> Update(T entity)
         {
             var result = await (_repository.Update(entity));
@@ -56,6 +59,7 @@ namespace _200124.Controllers
         }
         [Authorize(Roles = "ADMIN , SUBADMIN")]
         [HttpDelete]
+        [Route("Delete")]
         public async Task<ActionResult<Class>> Delete(int id)
         {
             var result = await (_repository.Delete(id));
