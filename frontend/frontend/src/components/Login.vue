@@ -1,42 +1,21 @@
 <template>
-    <div id="app">
-        <!-- <h2>Đăng Ký</h2>
-        <form @submit.prevent="register">
-            <div>
-                <label for="username">Tên đăng nhập:</label>
-                <input type="text" id="username" v-model="registerForm.username" required>
-            </div>
-            <div>
-                <label for="password">Mật khẩu:</label>
-                <input type="password" id="password" v-model="registerForm.password" required>
-            </div>
-            <button type="submit">Đăng Ký</button>
-        </form> -->
-
-        <h2>Đăng Nhập</h2>
-        <form @submit.prevent="login">
-            <div>
-                <label for="loginUsername">Tên đăng nhập:</label>
-                <input type="text" id="loginUsername" v-model="loginForm.username" required>
-            </div>
-            <div>
-                <label for="loginPassword">Mật khẩu:</label>
-                <input type="password" id="loginPassword" v-model="loginForm.password" required>
-            </div>
-            <button type="submit">Đăng Nhập</button>
+    <div id="login">
+        <form @submit.prevent="login"> <!-- Thêm kết nối sự kiện submit -->
+            <h1>Sign In</h1>
+            <input type="text" id="loginUsername" v-model="loginForm.username" required placeholder="Username">
+            <input type="password" id="loginPassword" v-model="loginForm.password" required placeholder="Password">
+            <button type="submit">Sign in</button>
+            <a href="/register" @click="goToRegister">Đăng ký</a>
         </form>
     </div>
 </template>
 <script>
 import axios from 'axios';
-
-
 export default {
     name: 'Login_Register',
     props: {
         msg: String
     },
-
     data() {
         return {
             registerForm: {
@@ -53,7 +32,10 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.post('https://localhost:7074/api/Auth/Login', {
+                var url = `${process.env.VUE_APP_BASE_URL}Auth/Login`;
+
+
+                const response = await axios.post(url, {
                     username: this.loginForm.username,
                     password: this.loginForm.password
                 });
@@ -66,6 +48,8 @@ export default {
                     // Chuyển hướng người dùng đến  trang khác
 
                     this.$router.push('/');
+                    // // Load lại trang sau khi chuyển hướng
+                    // this.$router.go(0);
                 } else {
                     console.error('Đăng nhập không thành công:', response.data);
                     // Hiển thị thông báo lỗi cho người dùng
@@ -74,22 +58,13 @@ export default {
                 console.error('Đã xảy ra lỗi khi đăng nhập:', error);
                 // Hiển thị thông báo lỗi cho người dùng
             }
+        },
+        goToRegister() {
+            // Chuyển hướng đến trang đăng ký
+            this.$router.push('/register');
+            // Load lại trang
+            this.$router.go(0);
         }
-        // async register() {
-        //     try {
-        //         const response = await axios.post('https://localhost:7074/api/Auth/Register?role=CUSTOMER', {
-        //             username: this.registerForm.username,
-        //             password: this.registerForm.password
-        //         });
-        //         console.log(response.data);
-        //         // Hiển thị thông báo thành công cho người dùng
-        //     } catch (error) {
-        //         console.error('Đăng ký không thành công:', error.response.data);
-        //         // Hiển thị thông báo lỗi cho người dùng
-        //     }
-        // },
-
-
         // login() {
         //     var url = "https://localhost:7074/api/Auth/Login";
         //     axios.post(url).then(response => {
@@ -99,7 +74,6 @@ export default {
         //         console.error('Đã xảy ra lỗi khi tải dữ liệu:', error);
         //     })
         // },
-
     },
     created() {
         //debugger
@@ -108,5 +82,7 @@ export default {
         // this.loadData();
     }
 }
-
 </script>
+<style scoped>
+@import url('/public/login.css');
+</style>

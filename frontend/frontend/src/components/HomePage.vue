@@ -7,7 +7,6 @@
     <div class="home">
         <h1>Welcome to Home Page</h1>
         <p>This is a simple home page built with Vue 3.</p>
-
     </div>
 </template>
 
