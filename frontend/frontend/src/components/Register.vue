@@ -62,7 +62,9 @@ export default {
       }
 
       try {
-        const response = await axios.post('https://localhost:7074/api/Auth/Register?role=CUSTOMER', {
+        var url = `${process.env.VUE_APP_BASE_URL}Auth/Register`;
+        //'https://localhost:7074/api/Auth/Register?role=CUSTOMER'
+        const response = await axios.post(url, {
           username: this.registerForm.username,
           password: this.registerForm.password,
           Role: 'CUSTOMER' // Thêm trường Role với giá trị 'CUSTOMER'
