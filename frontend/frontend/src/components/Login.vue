@@ -79,7 +79,7 @@ export default {
         //debugger
         console.log('Component created');
         this.titlePage = "Component Setting in created";
-        // this.loadData();
+        //this.login();
     }
 }
 </script>
