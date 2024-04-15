@@ -31,7 +31,7 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   // Kiểm tra meta data của trang
-  if (to.meta.requiresAuth) {
+  if (to.meta.requiresAuth && to.path !== '/login') {
     const token = localStorage.getItem('token');
     if (!token) {
       // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
@@ -44,6 +44,7 @@ router.beforeEach((to, from, next) => {
     // Trang không yêu cầu đăng nhập, cho phép truy cập
     next();
   }
+
 });
 
 export default router
