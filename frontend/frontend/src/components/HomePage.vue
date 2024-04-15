@@ -18,6 +18,7 @@ export default {
             // Ví dụ: xóa token khỏi Local Storage và chuyển hướng đến trang đăng nhập
             localStorage.removeItem('token');
             this.$router.push('/login');
+            window.location.reload();
         }
     }
 };

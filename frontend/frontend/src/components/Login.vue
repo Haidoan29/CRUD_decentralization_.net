@@ -18,15 +18,16 @@ export default {
     },
     data() {
         return {
-            registerForm: {
-                username: '',
-                password: ''
-            },
+            // registerForm: {
+            //     username: '',
+            //     password: ''
+            // },
             loginForm: {
                 username: '',
                 password: ''
             },
-            token: '' // Lưu trữ token sau khi đăng nhập thành công
+            token: '', // Lưu trữ token sau khi đăng nhập thành công
+
         }
     },
     methods: {
@@ -45,9 +46,13 @@ export default {
                     console.log('Đăng nhập thành công:', response.data);
                     // Lưu token vào local storage để sử dụng trong các yêu cầu tiếp theo
                     localStorage.setItem('token', response.data.token);
-                    // Chuyển hướng người dùng đến  trang khác
 
-                    this.$router.push('/');
+                    // Chuyển hướng người dùng đến trang khác
+                    // Chuyển hướng người dùng đến trang khác
+                    this.$router.push('/').then(() => {
+                        // Load lại trang sau khi chuyển hướng
+                        window.location.reload();
+                    });
                     // // Load lại trang sau khi chuyển hướng
                     // this.$router.go(0);
                 } else {
