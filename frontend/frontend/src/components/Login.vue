@@ -6,6 +6,7 @@
             <input type="password" id="loginPassword" v-model="loginForm.password" required placeholder="Password">
             <button type="submit">Sign in</button>
             <a href="/register" @click="goToRegister">Đăng ký</a>
+            <a href="/forgotpassword" @click="goToForgotpassword">quên mật khẩu</a>
         </form>
     </div>
 </template>
@@ -65,6 +66,12 @@ export default {
             }
         },
         goToRegister() {
+            // Chuyển hướng đến trang đăng ký
+            this.$router.push('/register');
+            // Load lại trang
+            this.$router.go(0);
+        },
+        goToForgotpassword() {
             // Chuyển hướng đến trang đăng ký
             this.$router.push('/register');
             // Load lại trang
