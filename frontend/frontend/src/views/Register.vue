@@ -11,7 +11,7 @@
 import Register from '@/components/Register.vue';
 
 export default {
-  name: 'HomeView',
+  name: 'UserRegister',
   components: {
     Register
   }
