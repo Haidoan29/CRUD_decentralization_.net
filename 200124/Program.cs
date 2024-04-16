@@ -1,5 +1,6 @@
 ﻿using _200124.Data;
 using _200124.Repository;
+using _200124.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentity<IdentityUser , IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
 //Cau hinh JWT
 
@@ -56,6 +59,7 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+builder.Services.AddTransient<IEmailService, MailKitEmailService>();
 
 
 builder.Services.AddControllersWithViews();
