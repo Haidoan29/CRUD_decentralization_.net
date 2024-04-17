@@ -4,8 +4,10 @@
       <div class="container">
         <h1>Sign Up</h1>
         <hr>
-        <label for="email"><b>username</b></label>
+        <label for="username"><b>username</b></label>
         <input type="text" id="username" v-model="registerForm.username" required>
+        <label for="email"><b>Email</b></label>
+        <input type="text" id="username" v-model="registerForm.email" required>
 
         <label for="psw"><b>Password</b></label>
         <input type="password" id="password" v-model="registerForm.password" required pattern=".{6,}"
@@ -46,6 +48,7 @@ export default {
       registerForm: {
         username: '',
         password: '',
+        email: '',
         retypePassword: '' // Thêm trường retypePassword vào form data
       },
       token: '', // Lưu trữ token sau khi đăng nhập thành công
@@ -65,7 +68,9 @@ export default {
         var url = `${process.env.VUE_APP_BASE_URL}Auth/Register`;
         //'https://localhost:7074/api/Auth/Register?role=CUSTOMER'
         const response = await axios.post(url, {
+
           username: this.registerForm.username,
+          email: this.registerForm.email,
           password: this.registerForm.password,
           Role: 'CUSTOMER' // Thêm trường Role với giá trị 'CUSTOMER'
         });

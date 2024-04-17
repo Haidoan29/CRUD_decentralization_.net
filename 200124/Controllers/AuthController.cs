@@ -73,6 +73,12 @@ namespace _200124.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             await this.InitRoles();
+            // Kiểm tra xem email đã tồn tại chưa
+            var existingUserWithEmail = await _userManager.FindByEmailAsync(model.Email);
+            if (existingUserWithEmail != null)
+            {
+                return BadRequest("Email đã được sử dụng! Vui lòng sử dụng một email khác.");
+            }
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null)
             {
@@ -81,6 +87,7 @@ namespace _200124.Controllers
             else
             {
                 var newUser = new IdentityUser(model.Username);
+                newUser.Email = model.Email;  // Cập nhật email cho người dùng
                 var checker = await _userManager.CreateAsync(newUser, model.Password);
                 if (checker.Succeeded)
                 {
@@ -114,6 +121,7 @@ namespace _200124.Controllers
             public string Username { get; set; }
             public string Password { get; set; }
             public string Role { get; set; }
+            public string Email { get; set; }
         }
 
         private async Task InitRoles()
