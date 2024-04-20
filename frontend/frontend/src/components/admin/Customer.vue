@@ -21,7 +21,7 @@
                                             class="fas fa-plus"></i>
                                         Tạo mới nhân viên</a>
                                 </div>
-                                <div class="col-sm-2">
+                                <!-- <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập"
                                         onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
                                 </div>
@@ -42,7 +42,7 @@
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm pdf-file" type="button" title="In"
                                         onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm" type="button" title="Xóa"
                                         onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
@@ -75,14 +75,17 @@
                                         <td>Nữ</td>
                                         <td>0926737168</td>
                                         <td>Bán hàng</td>
-                                        <td class="table-td-center"><button class="btn btn-primary btn-sm trash"
-                                                type="button" title="Xóa" onclick="myFunction(this)"><i
-                                                    class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -95,13 +98,17 @@
                                         <td>Nữ</td>
                                         <td>0931342432</td>
                                         <td>Bán hàng</td>
-                                        <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -114,13 +121,17 @@
                                         <td>Nữ</td>
                                         <td>0931491997</td>
                                         <td>Thu ngân</td>
-                                        <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction()"><i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -133,13 +144,17 @@
                                         <td>Nam</td>
                                         <td>0916706633</td>
                                         <td>Tư vấn</td>
-                                        <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction()"><i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -152,13 +167,17 @@
                                         <td>Nam</td>
                                         <td>0971038066</td>
                                         <td>Bảo trì</td>
-                                        <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction()"><i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -171,13 +190,17 @@
                                         <td>Nam</td>
                                         <td>0846881155</td>
                                         <td>Dịch vụ</td>
-                                        <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                onclick="myFunction()"><i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                                id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
-                                                    class="fas fa-edit"></i>
-                                            </button>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
+                                                    onclick="myFunction()">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
+                                                    data-toggle="modal" data-target="#ModalUP">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>

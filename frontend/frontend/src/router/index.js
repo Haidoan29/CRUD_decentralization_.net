@@ -7,6 +7,7 @@ import Employee from '@/views/admin/employee.vue'
 import Product from '@/views/admin/Product.vue'
 import Dashboard from '@/views/admin/Dashboard.vue'
 import Customer from '@/views/admin/Customer.vue'
+import Order from '@/views/admin/Order.vue'
 
 const routes = [
   {
@@ -58,6 +59,11 @@ const routes = [
     path: '/admin/customer',
     name: 'customer',
     component: Customer
+  },
+  {
+    path: '/admin/order',
+    name: 'OrderManagement',
+    component: Order
   },
 ]
 
