@@ -58,6 +58,7 @@ namespace _200124.Controllers
             return Ok(new { message = "Email reset password đã được gửi." });
         }
 
+
         private string GenerateResetToken()
         {
             // Tạo và trả về resetToken, sử dụng Guid
@@ -73,6 +74,70 @@ namespace _200124.Controllers
             Random random = new Random();
             int code = random.Next(100000, 999999); // Sinh số ngẫu nhiên từ 100,000 đến 999,999
             return code.ToString();
+        }
+        [HttpPost("confirmcode")]
+        public async Task<IActionResult> ConfirmCode([FromBody] ConfirmCodeModel model)
+        {
+            string email = model.Email;
+            string code = model.Code;
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                Console.WriteLine($"Không thể tìm thấy người dùng với email: {email}");
+                return BadRequest(new { message = "Email không tồn tại." });
+            }
+
+            // Kiểm tra mã code nhập vào có trùng khớp với mã code đã lưu trong cơ sở dữ liệu hay không
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+            var result = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, code);
+
+            if (result != PasswordVerificationResult.Success)
+            {
+                Console.WriteLine($"Mã code không hợp lệ cho email: {email}");
+                return BadRequest(new { message = "Mã code không hợp lệ." });
+            }
+
+            // Xóa mật khẩu tạm thời
+            user.PasswordHash = null;
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new { message = "Xác nhận mã code thành công." });
+        }
+
+
+        public class ConfirmCodeModel
+        {
+            public string Email { get; set; }
+            public string Code { get; set; }
+        }
+
+        [HttpPost("resetpassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                Console.WriteLine($"Không thể tìm thấy người dùng với email: {model.Email}");
+                return BadRequest(new { message = "Email không tồn tại." });
+            }
+
+            // Đặt lại mật khẩu mới cho người dùng
+            var newPasswordHash = new PasswordHasher<IdentityUser>().HashPassword(user, model.NewPassword);
+            user.PasswordHash = newPasswordHash;
+
+            // Cập nhật mật khẩu cho tài khoản
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new { message = "Đặt lại mật khẩu thành công." });
+        }
+
+        public class ResetPasswordModel
+        {
+            public string Email { get; set; }
+            public string NewPassword { get; set; }
         }
 
     }

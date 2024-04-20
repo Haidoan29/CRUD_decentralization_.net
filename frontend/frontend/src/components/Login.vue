@@ -4,9 +4,12 @@
             <h1>Sign In</h1>
             <input type="text" id="loginUsername" v-model="loginForm.username" required placeholder="Username">
             <input type="password" id="loginPassword" v-model="loginForm.password" required placeholder="Password">
+            <!-- <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> -->
             <button type="submit">Sign in</button>
             <a href="/register" @click="goToRegister">Đăng ký</a>
             <a href="/forgotpassword" @click="goToForgotpassword">quên mật khẩu</a>
+            <p :key="errorKey" v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+
         </form>
     </div>
 </template>
@@ -28,6 +31,8 @@ export default {
                 password: ''
             },
             token: '', // Lưu trữ token sau khi đăng nhập thành công
+            errorMessage: '', // Thêm biến này để lưu trữ thông báo lỗi
+            errorKey: 0 // Thêm key để cập nhật DOM
 
         }
     },
@@ -58,10 +63,16 @@ export default {
                     // this.$router.go(0);
                 } else {
                     console.error('Đăng nhập không thành công:', response.data);
+                    this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.';
+                    this.errorKey++; // Cập nhật key để cập nhật DOM
+
                     // Hiển thị thông báo lỗi cho người dùng
                 }
             } catch (error) {
                 console.error('Đã xảy ra lỗi khi đăng nhập:', error);
+                this.errorMessage = 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.';
+                this.errorKey++; // Cập nhật key để cập nhật DOM
+
                 // Hiển thị thông báo lỗi cho người dùng
             }
         },
