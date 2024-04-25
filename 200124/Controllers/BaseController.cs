@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace _200124.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BaseController<T> : ControllerBase where T : Base
@@ -17,12 +17,13 @@ namespace _200124.Controllers
         {
             _repository = repository;
         }
-        [Authorize(Roles = "ADMIN , SUBADMIN , CUSTOMER")]
+        
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<List<T>>> GetAll(bool isAsc = true , int index = 1, int size = 3)
+        public async Task<ActionResult<List<T>>> GetAll()
         {
-            var result = await _repository.GetAll(isAsc, index, size);
+            //var result = await _repository.SortAndPagination(colName, isAsc, index, size);
+            var result = await _repository.GetAllNoPagAndFilter();
             return Ok(result);
 
         }

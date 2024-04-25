@@ -13,6 +13,7 @@ namespace _200124.Repository
     {
         Task<List<T>> GetAll(bool isAsc = true, int index = 1 , int size = 3);
         Task<T> GetById(int id);
+        Task<List<T>> GetAllNoPagAndFilter();
         Task<T> Create(T entity);
         Task<T> Update(T entity);
         Task<T> Delete(int id);
@@ -53,7 +54,11 @@ namespace _200124.Repository
             }
             return null;
         }
-
+        public async Task<List<T>> GetAllNoPagAndFilter()
+        {
+            var result = await _dbSet.ToListAsync();
+            return result;
+        }
         public async Task<T> Delete(int id)
         {
             var result = await _dbSet.FindAsync(id);
