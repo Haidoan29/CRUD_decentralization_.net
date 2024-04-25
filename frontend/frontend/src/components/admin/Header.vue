@@ -7,10 +7,16 @@
 
 
             <!-- User Menu-->
-            <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+            <li>
+                <!-- <a class="app-nav__item" @click="logout"> -->
+                <!-- <i class='bx bx-log-out bx-rotate-180'></i> -->
+                <button @click="logouts">dang xuat</button>
+                <!-- </a> -->
 
             </li>
         </ul>
+        ``
+
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -61,7 +67,17 @@
 
 <script>
 export default {
-    name: 'YourComponentName'
+    name: 'YourComponentName',
+    methods: {
+        logouts() {
+            // Xử lý đăng xuất ở đây
+            // Ví dụ: xóa token khỏi Local Storage và chuyển hướng đến trang đăng nhập
+            localStorage.removeItem('token');
+            this.$router.push('/admin/singin');
+            console.log('đã xóa token');
+            // window.location.reload();
+        }
+    }
 }
 </script>
 <style scoped>

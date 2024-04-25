@@ -52,11 +52,14 @@ namespace _200124.Controllers
             {
                 return BadRequest("Sai username hoặc password.");
             }
+            // Lấy vai trò của người dùng
+            var userRoles = await _userManager.GetRolesAsync(user);
 
             // Nếu username và password đều hợp lệ, tạo token JWT và trả về kết quả thành công
             var tokenString = await GenerateJWTTokenAsync(user);
             dynamic result = new ExpandoObject();
             result.token = tokenString;
+            result.role = userRoles.FirstOrDefault(); // Lấy vai trò đầu tiên (nếu có)
             result.message = "Đăng nhập thành công.";
             return Ok(result);
         }

@@ -54,9 +54,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll",
         builder =>
         {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            builder.WithOrigins("http://localhost:8080") // Thay thế bằng địa chỉ thực tế của ứng dụng Vue của bạn
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
         });
 });
 builder.Services.AddTransient<IEmailService, MailKitEmailService>();
@@ -78,6 +78,14 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+//Config CORS
+app.UseCors("AllowAll");
+//app.UseCors(builder =>
+//{
+//    builder.WithOrigins("http://localhost:8080") // Địa chỉ của ứng dụng Vue
+//           .AllowAnyHeader()
+//           .AllowAnyMethod();
+//});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -93,8 +101,7 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API của bạn V1");
 });
-//Config CORS
-app.UseCors("AllowAll");
+
 
 app.MapControllerRoute(
     name: "default",

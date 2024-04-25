@@ -17,32 +17,11 @@
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
-                                    <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm"><i
-                                            class="fas fa-plus"></i>
-                                        Tạo mới nhân viên</a>
-                                </div>
-                                <!-- <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập"
-                                        onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
+                                    <!-- <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm"><i
+                                            class="fas fa-plus"></i> -->
+                                    <button class="btn btn-success" @click="onCreateClick()">Create</button>
                                 </div>
 
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file" type="button" title="In"
-                                        onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button"
-                                        title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i>
-                                        Xuất Excel</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-delete btn-sm pdf-file" type="button" title="In"
-                                        onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
-                                </div> -->
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm" type="button" title="Xóa"
                                         onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
@@ -52,7 +31,7 @@
                                 cellspacing="0" border="0" id="sampleTable">
                                 <thead>
                                     <tr>
-                                        <th width="10"><input type="checkbox" id="all"></th>
+                                        <th width="10"><input width="10" type="checkbox" id="all"></th>
                                         <th>ID nhân viên</th>
                                         <th width="150">Họ và tên</th>
                                         <th width="20">Ảnh thẻ</th>
@@ -65,171 +44,89 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>#CD12837</td>
-                                        <td>Hồ Thị Thanh Ngân</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/1.jpg" alt=""></td>
-                                        <td>155-157 Trần Quốc Thảo, Quận 3, Hồ Chí Minh </td>
-                                        <td>12/02/1999</td>
-                                        <td>Nữ</td>
-                                        <td>0926737168</td>
-                                        <td>Bán hàng</td>
+                                    <tr v-for="p in productData" :key="p.id">
+                                        <th width="10"><input type="checkbox" id="all"></th>
+                                        <td>{{ p.id }}</td>
+                                        <td>{{ p.className }}</td>
+                                        <td><img :src="p.imageProduct" width="80"></td>
+                                        <td>{{ p.price }}</td>
+                                        <td>{{ p.barCode }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-warning"
+                                                    @click="onUpdateClick(p)">Update</button>
+                                                <button type="button" class="btn btn-danger">Delete</button>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check2" value="2"></td>
-                                        <td>#SX22837</td>
-                                        <td>Trần Khả Ái</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/2.jpg" alt=""></td>
-                                        <td>6 Nguyễn Lương Bằng, Tân Phú, Quận 7, Hồ Chí Minh</td>
-                                        <td>22/12/1999</td>
-                                        <td>Nữ</td>
-                                        <td>0931342432</td>
-                                        <td>Bán hàng</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check3" value="3"></td>
-                                        <td>#LO2871</td>
-                                        <td>Phạm Thu Cúc</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/3.jpg" alt=""></td>
-                                        <td>Số 3 Hòa Bình, Phường 3, Quận 11, Hồ Chí Minh </td>
-                                        <td>02/06/1998</td>
-                                        <td>Nữ</td>
-                                        <td>0931491997</td>
-                                        <td>Thu ngân</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox"></td>
-                                        <td>#SR28746</td>
-                                        <td>Trần Anh Khoa</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/4.jpg" alt=""></td>
-                                        <td>19 Đường Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Hồ Chí Minh </td>
-                                        <td>18/02/1995</td>
-                                        <td>Nam</td>
-                                        <td>0916706633</td>
-                                        <td>Tư vấn</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox"></td>
-                                        <td>#KJS276</td>
-                                        <td>Nguyễn Thành Nhân</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/5.jpg" alt=""></td>
-                                        <td>Số 13, Tân Thuận Đông, Quận 7, Hồ Chí Minh </td>
-                                        <td>10/03/1996</td>
-                                        <td>Nam</td>
-                                        <td>0971038066</td>
-                                        <td>Bảo trì</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox"></td>
-                                        <td>#BS76228</td>
-                                        <td>Nguyễn Đặng Trọng Nhân</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/6.jpg" alt=""></td>
-                                        <td>59C Nguyễn Đình Chiểu, Quận 3, Hồ Chí Minh </td>
-                                        <td>23/07/1996</td>
-                                        <td>Nam</td>
-                                        <td>0846881155</td>
-                                        <td>Dịch vụ</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox"></td>
-                                        <td>#YUI21376</td>
-                                        <td>Nguyễn Thị Mai</td>
-                                        <td><img class="img-card-person" src="/img-anhthe/4.jpg" alt=""></td>
-                                        <td>Đường Số 3, Tân Tạo A, Bình Tân, Hồ Chí Minh</td>
-                                        <td>09/12/2000</td>
-                                        <td>Nữ </td>
-                                        <td>0836333037</td>
-                                        <td>Tư vấn</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <button class="btn btn-primary btn-sm trash" title="Xóa"
-                                                    onclick="myFunction()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" title="Sửa" id="show-emp"
-                                                    data-toggle="modal" data-target="#ModalUP">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
                                 </tbody>
+                                <div class="khoi-phan-trang">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous"
+                                                    @click="previousPage">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item" v-for="page in totalPages" :key="page">
+                                                <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </table>
+                        </div>
+                        <div class="modal fade" ref="productModal" id="productModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New Product</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Product Name:</label>
+                                                <input type="text" class="form-control" id="recipient-name"
+                                                    v-model="currentProduct.className">
+                                            </div>
+                                            <!-- <div class="form-group">
+                                                <label for="imageProduct" class="col-form-label">Product Image:</label>
+                                                <input type="file" class="form-control" id="imageProduct"
+                                                    @change="onFileChange">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Price:</label>
+                                                <input type="number" class="form-control" id="recipient-name"
+                                                    v-model="currentProduct.price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Bar Code:</label>
+                                                <input type="text" class="form-control" id="recipient-name"
+                                                    v-model="currentProduct.barCode">
+                                            </div> -->
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary"
+                                            @click="onSaveClick()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -313,12 +210,221 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { Modal } from 'bootstrap';
+import { toast } from 'vue3-toastify';
+
+import 'vue3-toastify/dist/index.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 export default {
     name: 'EmployeeCustomer',
 
-    mounted() {
-        // Code của bạn ở đây
+    // components: {
+    //     Modal, toast
+    // },
+    setup() {
+        const success = () => {
+            toast("Success !", {
+                autoClose: 1000,
+                type: "success"
+            });
+        }
+        return { success };
+    },
+    data() {
+        return {
+            productData: [],
+            productModal: null,
+            currentProduct: {
+                id: 0,
+                className: "Name",
 
+            },
+            searchKeyword: '',
+            currentPage: 1, // Trang hiện tại
+            pageSize: 6,   // Kích thước trang (số lượng sản phẩm trên mỗi trang)
+            totalItems: 0,  // Tổng số sản phẩm
+            totalPages: 0,
+        }
+    },
+    methods: {
+        loadProductData() {
+            var url = process.env.VUE_APP_BASE_URL + `Class/GetAll`;
+            axios.get(url).then((response) => {
+                console.log(response);
+                //this.productData = response.data;
+                this.totalItems = response.data.length; // Số lượng sản phẩm trong dữ liệu nhận được
+                this.totalPages = Math.floor(this.totalItems / this.pageSize);
+                if (this.totalItems % this.pageSize !== 0) {
+                    this.totalPages++; // Nếu còn dư sản phẩm, tăng totalPages lên 1
+                }
+
+                let startIndex = (this.currentPage - 1) * this.pageSize;
+                let endIndex = this.currentPage * this.pageSize;
+
+                // Cắt lát productData để chỉ lấy số lượng sản phẩm tương ứng với pageSize
+                this.productData = response.data.slice(startIndex, endIndex);
+                // Nếu số lượng sản phẩm vượt quá 10, tăng số trang lên 1
+
+            }).catch((error) => {
+                console.log(error.response);
+            })
+        },
+
+        changePage(page) {
+            this.currentPage = page;
+            this.loadProductData();
+        },
+        previousPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.loadProductData();
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+                this.loadProductData();
+            }
+        },
+        onCreateClick() {
+            this.currentProduct = {
+                id: 0,
+                className: "Name",
+
+            }
+            this.productModal.show();
+        },
+        onUpdateClick(p) {
+            this.currentProduct = Object.assign({}, p);// clone d
+            this.productModal.show();
+        },
+        onSaveClick() {
+            if (this.currentProduct.id == 0) {
+                var url = process.env.VUE_APP_BASE_URL + `Class/Create`;
+
+                // Lấy token từ local storage
+                const token = localStorage.getItem('token');
+
+                axios.post(url, this.currentProduct, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+
+                        // Hiển thị thông báo thành công
+                        this.success();
+
+                        // Ẩn modal
+                        this.productModal.hide();
+
+                        // Tải lại dữ liệu sản phẩm
+                        this.loadProductData();
+                    })
+                    .catch((error) => {
+                        if (error.response && error.response.data) {
+                            console.log(error.response.data);
+                            // Xử lý lỗi ở đây
+                        } else {
+                            console.log('Lỗi không xác định:', error);
+                        }
+                    });
+            }
+            else {
+                var url1 = process.env.VUE_APP_BASE_URL + `Class/Update`;
+
+                // Lấy token từ local storage
+                const token = localStorage.getItem('token');
+                axios.put(url1, this.currentProduct, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        // Hiển thị thông báo thành công
+                        this.success();
+                        // Ẩn modal
+                        this.productModal.hide();
+                        // Tải lại dữ liệu sản phẩm
+                        this.loadProductData();
+                    })
+                    .catch((error) => {
+                        console.log('Lỗi Axios:', error);
+                        if (error.response) {
+                            console.log('Phản hồi từ server:', error.response.data);
+                            if (error.response.status === 401) {
+                                console.log('Token hết hạn hoặc không hợp lệ.');
+                                // Xử lý token hết hạn ở đây
+                            }
+                        }
+                    });
+
+            }
+
+        },
+        logout() {
+            // Xử lý đăng xuất ở đây
+            // Ví dụ: xóa token khỏi Local Storage và chuyển hướng đến trang đăng nhập
+            localStorage.removeItem('token');
+            this.$router.push('/login');
+        },
+        onFileChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Kiểm tra phần mở rộng của file
+                const validExtensions = ['.png', '.jpg', '.jpeg'];
+                const fileName = file.name;
+                const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+                if (!validExtensions.includes(fileExtension)) {
+                    alert('Vui lòng chọn một file ảnh có định dạng .png, .jpg hoặc .jpeg!');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.currentProduct.imageProduct = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        onSubmit() {
+            var url = process.env.VUE_APP_BASE_URL + `/Products/fullFilter`;
+            var requestData = {
+                filterParams: [
+                    {
+                        colName: "productName",
+                        _operator: "like",
+                        value: this.searchKeyword
+                    }
+                ],
+                index: 1,
+                size: 10,
+                sortAsc: true,
+                sortCol: "productName"
+            };
+
+            axios.post(url, requestData)
+                .then(response => {
+                    this.productData = response.data;
+                    this.totalItems = this.productData.length; // Số lượng sản phẩm trong dữ liệu nhận được
+                    this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+                    console.log(this.productData);
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tìm kiếm sản phẩm:', error);
+                });
+        }
+
+    },
+    mounted() {
+        this.loadProductData();
+        console.log(this.totalPages);
+        //load Modal
+        this.productModal = new Modal(this.$refs.productModal);
     }
 }
 </script>

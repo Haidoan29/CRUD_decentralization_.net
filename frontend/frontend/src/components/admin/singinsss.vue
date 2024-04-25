@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <form @submit.prevent="login"> <!-- Thêm kết nối sự kiện submit -->
+        <form @submit.prevent="singin"> <!-- Thêm kết nối sự kiện submit -->
             <h1>Sign In</h1>
             <input type="text" id="loginUsername" v-model="loginForm.username" required placeholder="Username">
             <input type="password" id="loginPassword" v-model="loginForm.password" required placeholder="Password">
@@ -37,46 +37,41 @@ export default {
         }
     },
     methods: {
-        async login() {
+        async singin() {
             try {
                 var url = `${process.env.VUE_APP_BASE_URL}Auth/Login`;
-
 
                 const response = await axios.post(url, {
                     username: this.loginForm.username,
                     password: this.loginForm.password
                 });
-
+                console.log(response.data.role);
                 // Kiểm tra kết quả từ phản hồi
-                if (response.status === 200) {
+                if (response.status === 200 && response.data.token && response.data.role === 'ADMIN') {
                     console.log('Đăng nhập thành công:', response.data);
+
                     // Lưu token vào local storage để sử dụng trong các yêu cầu tiếp theo
                     localStorage.setItem('token', response.data.token);
 
-                    // Chuyển hướng người dùng đến trang khác
-                    // Chuyển hướng người dùng đến trang khác
-                    this.$router.push('/').then(() => {
+                    // Chuyển hướng người dùng đến trang admin
+                    this.$router.push('/admin').then(() => {
                         // Load lại trang sau khi chuyển hướng
-                        window.location.reload();
-                        // console.log('Đăng nhập thành công:', response.data.token);
+                        // window.location.reload();
+                        // console.log('Đăng nhập thành công:', response.data);
                     });
-                    // // Load lại trang sau khi chuyển hướng
-                    // this.$router.go(0);
                 } else {
                     console.error('Đăng nhập không thành công:', response.data);
-                    this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại.';
+                    this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng hoặc không có quyền truy cập. Vui lòng thử lại.';
                     this.errorKey++; // Cập nhật key để cập nhật DOM
-
-                    // Hiển thị thông báo lỗi cho người dùng
                 }
             } catch (error) {
                 console.error('Đã xảy ra lỗi khi đăng nhập:', error);
                 this.errorMessage = 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.';
                 this.errorKey++; // Cập nhật key để cập nhật DOM
-
-                // Hiển thị thông báo lỗi cho người dùng
             }
         },
+
+
         goToRegister() {
             // Chuyển hướng đến trang đăng ký
             this.$router.push('/register');
@@ -108,5 +103,5 @@ export default {
 }
 </script>
 <style scoped>
-@import url('/public/login.css');
+/* @import url('/public/login.css'); */
 </style>
